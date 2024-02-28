@@ -1,10 +1,11 @@
+import pprint
 import colorsys
 import toml
 
 
-def generate_color_palette(theme_name):
+def generate_color_palette():
     palette = []
-    ascii_size = 127  # there are 127 characters in the base ASCII implementation
+    ascii_size = 127  # there are 127 characters in the base ASCII
     hue_step = 1.0 / ascii_size
 
     for i in range(ascii_size):
@@ -16,14 +17,19 @@ def generate_color_palette(theme_name):
 
 
 def append_theme_to_toml(theme_name, palette):
-    # Load existing themes from themes.toml
+    # Check if the file exists
     try:
         with open("themes.toml", "r") as f:
             themes = toml.load(f)
     except FileNotFoundError:
-        themes = {}
+        # If the file doesn't exist, raise an error and exit
+        raise FileNotFoundError("themes.toml file not found.")
 
-        themes["theme"][theme_name] = {chr(i): color for i, color in enumerate(palette)}
+    # Update the themes dictionary with the new theme
+    if "theme" not in themes:
+        themes["theme"] = {}
+
+    themes["theme"][theme_name] = {chr(i): color for i, color in enumerate(palette)}
 
     # Write the updated dictionary back to themes.toml
     with open("themes.toml", "w") as f:
@@ -31,10 +37,10 @@ def append_theme_to_toml(theme_name, palette):
 
 
 # Prompt user for theme name
-theme_name = input("Please give your theme a name: ")
+theme_name = input("theme name: ")
 
 # Generate color palette
-palette = generate_color_palette(theme_name)
+palette = generate_color_palette()
 
 # Append theme to themes.toml
 append_theme_to_toml(theme_name, palette)
