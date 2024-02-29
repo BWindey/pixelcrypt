@@ -10,7 +10,8 @@ with open(themefile, "r") as f:
 
 # Extract color values from the TOML data
 colors = [
-    color_data["theme"]["theme"][char] for char in sorted(color_data["theme"]["theme"])
+    color_data["theme"]["theme1"][char]
+    for char in sorted(color_data["theme"]["theme1"])
 ]
 
 # Create a plot to display the colors

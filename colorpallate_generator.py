@@ -29,10 +29,10 @@ def append_theme_to_toml(theme_name, palette):
     if "theme" not in themes:
         themes["theme"] = {}
 
-    themes["theme"][theme_name] = {chr(i): color for i, color in enumerate(palette)}
+    themes["theme"][theme_name] = {str(i): color for i, color in enumerate(palette)}
 
     # Write the updated dictionary back to themes.toml
-    with open("themes.toml", "w") as f:
+    with open("themes.toml", "a") as f:
         toml.dump(themes, f)
 
 
