@@ -1,18 +1,39 @@
 from PIL import Image
+import toml
 
 
-def stringToAscii(string):
+def stringToAscii(string):  # returns a list with ascii values from a string
     return list(ord(i) for i in string)
 
 
-def generateImage(size, asciiValues):
+# loads the theme file and returns it's data
+def loadThemeFile():
+    with open("themes.toml", "r") as file:
+        data = toml.load(file)
+
+    return data["theme"]["rainbow"]
+
+
+# fills the rows with transcoded data, and stacks it so it's a square
+def generateImage(asciiValues):
+    size = len(asciiValues)
     image = Image.new("RGB", (size, size), "white")
+    theme = loadThemeFile()
 
-    width, height = size
+    for x, ascii_val in enumerate(asciiValues):
+        ascii_str = str(ascii_val)
 
-    for y in range(height):
-        for x in range(width):
-            image.putpixel((x, y), ())
+        color = theme[ascii_str]
+        # Ensure that the color is a list
+        if not isinstance(color, list):
+            raise ValueError("Invalid color format in theme file")
+
+        # Extract RGB values from the list
+        pixel_color = tuple(color)
+
+        # Fill the entire column with the pixel color
+        for y in range(size):
+            image.putpixel((x, y), pixel_color)
 
     image.save("image.png")
 
@@ -20,5 +41,7 @@ def generateImage(size, asciiValues):
 clearText = input("message to encode: ")
 imageSize = len(clearText)
 asciiText = stringToAscii(clearText)
+print(asciiText)
+theme = loadThemeFile()
 
-generateImage(imageSize, asciiText)
+generateImage(asciiText)
