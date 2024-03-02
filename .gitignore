@@ -1,0 +1,7 @@
+
+# Ignore PNG and JPG files
+*.png
+*.jpg
+
+# Ignore .idea folder
+.idea/
