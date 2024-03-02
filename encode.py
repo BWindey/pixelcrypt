@@ -1,23 +1,10 @@
-import os
-
-import toml
 from PIL import Image
+
+from loadThemeFile import loadThemeFile
 
 
 def stringToAscii(string):  # returns a list with ascii values from a string
     return list(ord(i) for i in string)
-
-
-# loads the theme file and returns it's data
-def loadThemeFile():
-    file_path = "themes.toml"
-    if not os.path.isfile(file_path):
-        raise FileNotFoundError(f"Theme file '{file_path}' not found.")
-
-    with open("file_path", "r") as file:
-        data = toml.load(file)
-
-    return data["theme"]["rainbow"]
 
 
 # fills the rows with transcoded data, and stacks it so it's a square
