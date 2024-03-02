@@ -3,6 +3,7 @@ import toml
 
 
 ASCII_SIZE = 127  # there are 127 characters in the base ASCII
+THEME = "rainbow"
 
 
 def generate_color_palette():
@@ -17,7 +18,7 @@ def generate_color_palette():
     return palette
 
 
-def append_theme_to_toml(theme_name, palette):
+def append_theme_to_toml(palette):
     # Check if the file exists
     try:
         with open("themes.toml", "r") as f:
@@ -30,20 +31,17 @@ def append_theme_to_toml(theme_name, palette):
     if "theme" not in themes:
         themes["theme"] = {}
 
-    themes["theme"][theme_name] = {str(i): color for i, color in enumerate(palette)}
+    themes["theme"][THEME] = {str(i): color for i, color in enumerate(palette)}
 
     # Write the updated dictionary back to themes.toml
-    with open("themes.toml", "a") as f:
+    with open("themes.toml", "w") as f:
         toml.dump(themes, f)
 
-
-# Prompt user for theme name
-theme_name = input("theme name: ")
 
 # Generate color palette
 palette = generate_color_palette()
 
 # Append theme to themes.toml
-append_theme_to_toml(theme_name, palette)
+append_theme_to_toml(palette)
 
-print("Theme '{}' has been added to themes.toml.".format(theme_name))
+print("Theme has been added to themes.toml.")
