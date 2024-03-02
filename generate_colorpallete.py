@@ -1,14 +1,15 @@
-import pprint
 import colorsys
 import toml
 
 
+ASCII_SIZE = 127  # there are 127 characters in the base ASCII
+
+
 def generate_color_palette():
     palette = []
-    ascii_size = 127  # there are 127 characters in the base ASCII
-    hue_step = 1.0 / ascii_size
+    hue_step = 1.0 / ASCII_SIZE
 
-    for i in range(ascii_size):
+    for i in range(ASCII_SIZE):
         h = i * hue_step
         rgb_color = colorsys.hsv_to_rgb(h, 1.0, 1.0)
         scaled_rgb = tuple(int(x * 255) for x in rgb_color)  # Scale RGB values to 0-255
