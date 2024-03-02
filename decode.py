@@ -18,7 +18,6 @@ def loadImage(path="image.png", key="themes.toml"):
     # Retrieve RGB values of pixels in the first row
     pixels_first_row_rgb = [image.getpixel((x, 0)) for x in range(width)]
 
-    print(theme.items())
     keys = []
     for rgb_value in pixels_first_row_rgb:
         for key, theme_rgb in theme.items():
@@ -32,8 +31,6 @@ def loadImage(path="image.png", key="themes.toml"):
     # Filter out None values and concatenate the keys into a single string
     keys_str = "".join(key for key in keys if key is not None)
 
-    print("-" * 50)
-    print(pixels_first_row_rgb)
     print("-" * 50)
     print(keys_str)
 
