@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # Load color palette from TOML file
 
-themefile = input("Please enter your theme file (no extension)") + ".toml"
+themefile = input("Please enter your .toml theme file (no extension): ") + ".toml"
 
 with open(themefile, "r") as f:
     color_data = toml.load(f)
