@@ -1,5 +1,7 @@
-from PIL import Image
+import os
+
 import toml
+from PIL import Image
 
 
 def stringToAscii(string):  # returns a list with ascii values from a string
@@ -8,7 +10,11 @@ def stringToAscii(string):  # returns a list with ascii values from a string
 
 # loads the theme file and returns it's data
 def loadThemeFile():
-    with open("themes.toml", "r") as file:
+    file_path = "themes.toml"
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f"Theme file '{file_path}' not found.")
+
+    with open("file_path", "r") as file:
         data = toml.load(file)
 
     return data["theme"]["rainbow"]
