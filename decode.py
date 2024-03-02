@@ -35,4 +35,4 @@ def loadImage(path="image.png", key="themes.toml"):
     print(keys_str)
 
 
-loadImage(input())
+loadImage(input("image name (default in same dir is image.png): "))
