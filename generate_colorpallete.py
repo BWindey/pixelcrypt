@@ -3,7 +3,7 @@ import toml
 
 
 ASCII_SIZE = 127  # there are 127 characters in the base ASCII
-THEME = "rainbow"
+THEME = "rainbow"  # As of now, this can only generate a rainbow pallete
 
 
 def generate_color_palette():
