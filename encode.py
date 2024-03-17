@@ -3,17 +3,17 @@ from PIL import Image
 from loadThemeFile import loadThemeFile
 
 
-def stringToAscii(string):  # returns a list with ascii values from a string
+def string_to_ascii(string):  # returns a list with ascii values from a string
     return list(ord(i) for i in string)
 
 
-# fills the rows with transcoded data, and stacks it so it's a square
-def generateImage(asciiValues):
-    size = len(asciiValues)
+# fills the rows with transcoded data, and stacks it, so it's a square
+def generate_image(ascii_values, save_location="image.png"):
+    size = len(ascii_values)
     image = Image.new("RGB", (size, size), "white")
     theme = loadThemeFile()
 
-    for x, ascii_val in enumerate(asciiValues):
+    for x, ascii_val in enumerate(ascii_values):
         ascii_str = str(ascii_val)
 
         color = theme[ascii_str]
@@ -26,15 +26,17 @@ def generateImage(asciiValues):
 
         # Fill the entire column with the pixel color
         for y in range(size):
-            image.putpixel((x, y), pixel_color)
+            image.putpixel(((x + y) % size, y), pixel_color)
 
-    image.save("image.png")
+    image.save(save_location)
 
 
-clearText = input("message to encode: ")
-imageSize = len(clearText)
-asciiText = stringToAscii(clearText)
-print(asciiText)
-theme = loadThemeFile()
+if __name__ == "__main__":
+    clearText = input("message to encode: ")
+    save_location = input("File to save to: ")
 
-generateImage(asciiText)
+    imageSize = len(clearText)
+    asciiText = string_to_ascii(clearText)
+    theme = loadThemeFile()
+
+    generate_image(asciiText, save_location)
