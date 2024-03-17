@@ -1,6 +1,6 @@
 from PIL import Image
 
-from loadThemeFile import loadThemeFile
+from loadThemeFile import load_theme_file
 
 
 def string_to_ascii(string):  # returns a list with ascii values from a string
@@ -11,7 +11,7 @@ def string_to_ascii(string):  # returns a list with ascii values from a string
 def generate_image(ascii_values, save_location="image.png"):
     size = len(ascii_values)
     image = Image.new("RGB", (size, size), "white")
-    theme = loadThemeFile()
+    theme = load_theme_file()
 
     for x, ascii_val in enumerate(ascii_values):
         ascii_str = str(ascii_val)
@@ -37,6 +37,6 @@ if __name__ == "__main__":
 
     imageSize = len(clearText)
     asciiText = string_to_ascii(clearText)
-    theme = loadThemeFile()
+    theme = load_theme_file()
 
     generate_image(asciiText, save_location)

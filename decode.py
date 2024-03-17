@@ -1,9 +1,9 @@
 from PIL import Image
-from loadThemeFile import loadThemeFile
+from loadThemeFile import load_theme_file
 
 
-def loadImage(path="image.png", key="themes.toml"):
-    theme = loadThemeFile()
+def load_image(path="image.png", key="themes.toml"):
+    theme = load_theme_file()
     image = Image.open(path)
 
     # debug information
@@ -35,4 +35,5 @@ def loadImage(path="image.png", key="themes.toml"):
     print(keys_str)
 
 
-loadImage(input("image name (default in same dir is image.png): "))
+if __name__ == "__main__":
+    load_image(input("image name (default in same dir is image.png): "))
