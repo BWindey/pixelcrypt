@@ -25,6 +25,8 @@ def generateImage(asciiValues: list, fileName: str) -> None:
 
         # Extract RGB values from the list
         pixel_color = tuple(color)
+        # print debug info
+        print(f"    {clearText[x]} ➡️ {ascii_val} ➡️ {pixel_color}")
 
         # Fill the entire column with the pixel color
         for y in range(size):
@@ -32,6 +34,7 @@ def generateImage(asciiValues: list, fileName: str) -> None:
 
     try:
         image.save(f"{fileName}.png")
+        print(f"\nEncoded image saved succesfully under {fileName}.png\n")
     except IOError as e:
         print(f"Error saving the image: {e}")
 
@@ -53,7 +56,7 @@ clearText = args.message
 fileName = args.fileName
 
 asciiText = stringToAscii(clearText)
-print(f"ascii values: {asciiText}")
+print(f"\nascii values: {asciiText}\n")
 theme = loadThemeFile()
 
 generateImage(asciiText, fileName)
