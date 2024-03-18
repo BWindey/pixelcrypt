@@ -18,13 +18,12 @@ def check_duplicate_values(theme_file):
 
 
 if __name__ == "__main__":
-    if __name__ == "__main__":
-        theme_file = "themes.toml"
-        duplicate_rows = check_duplicate_values(theme_file)
+    theme_file = "themes.toml"
+    duplicate_rows = check_duplicate_values(theme_file)
 
-        if duplicate_rows:
-            print("Duplicate rows found:")
-            for theme_name, ascii_value in duplicate_rows:
-                print(f"Theme: {theme_name}, ASCII Value: {ascii_value}")
-        else:
-            print("No duplicate rows found.")
+    if duplicate_rows:
+        print("Duplicate rows found:")
+        for theme_name, ascii_value in duplicate_rows:
+            print(f"Theme: {theme_name}, ASCII Value: {ascii_value}")
+    else:
+        print("No duplicate rows found.")
