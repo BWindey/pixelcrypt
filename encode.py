@@ -2,7 +2,8 @@ import argparse
 
 from PIL import Image
 
-from encryption_modes import DiagonalMode, ImageMode  # all encryption modes
+from color import colored_square
+from encryption_modes import DiagonalMode  # all encryption modes
 from loadThemeFile import load_theme_file
 
 
@@ -23,7 +24,9 @@ def generate_image(
     # purely aesthetic conversion printing
     for x, ascii_val in enumerate(ascii_values):
         pixel_color = tuple(theme[str(ascii_val)])
-        print(f"{clear_text[x]} ➡️ {str(ascii_val).zfill(3)} ➡️ {pixel_color}")
+        print(
+            f"{clear_text[x]} ➡️ {str(ascii_val).zfill(3)} ➡️ {colored_square(pixel_color)} {pixel_color}"
+        )
 
     image = encryption_mode.apply(ascii_values, image, theme, size)
 
