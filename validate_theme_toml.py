@@ -30,7 +30,7 @@ def checker(theme_file: str):
         )
     else:
         print(
-            f"Encryption key {theme_file} loaded succesfully: no duplicate rows found.\n"
+            f"Encryption key {theme_file} evaluated succesfully: no duplicate rows found!\n"
         )
 
 
