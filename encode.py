@@ -3,7 +3,8 @@ from PIL import Image
 from loadThemeFile import loadThemeFile
 
 
-def stringToAscii(string):  # returns a list with ascii values from a string
+# returns a list with ascii values from a string
+def stringToAscii(string):
     return list(ord(i) for i in string)
 
 
@@ -28,7 +29,10 @@ def generateImage(asciiValues):
         for y in range(size):
             image.putpixel((x, y), pixel_color)
 
-    image.save("image.png")
+    try:
+        image.save("image.png")
+    except IOError as e:
+        print(f"Error saving the image: {e}")
 
 
 clearText = input("message to encode: ")
