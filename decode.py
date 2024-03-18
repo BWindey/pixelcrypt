@@ -1,10 +1,10 @@
 from PIL import Image
-from loadThemeFile import loadThemeFile
+from loadThemeFile import load_theme_file
 import sys
 
 
-def loadImage(path="image.png", key="themes.toml"):
-    theme = loadThemeFile()
+def load_image(path="image.png", key="themes.toml"):
+    theme = load_theme_file()
     image = Image.open(path)
 
     # debug information
@@ -23,11 +23,9 @@ def loadImage(path="image.png", key="themes.toml"):
 
     keys = []
     for rgb_value in pixels_first_row_rgb:
-        for key, theme_rgb in theme.items():
-            # Check if the RGB values are within a certain tolerance
-            if all(abs(a - b) <= 5 for a, b in zip(rgb_value, theme_rgb)):
-                keys.append(chr(int(key)))
-                break
+        keys.append(
+            chr(int([key for key, value in theme.items() if tuple(value) == tuple(rgb_value)][0]))
+        )
 
     #  concatenate the characters into a single string
     decodedMessage = "".join(key for key in keys)
@@ -35,4 +33,5 @@ def loadImage(path="image.png", key="themes.toml"):
     print(f"\ndecoded message: {decodedMessage}\n")
 
 
-loadImage(sys.argv[1])
+if __name__ == "__main__":
+    load_image(sys.argv[1])

@@ -38,10 +38,11 @@ def append_theme_to_toml(palette):
         toml.dump(themes, f)
 
 
-# Generate color palette
-palette = generate_color_palette()
+if __name__ == "__main__":
+    # Generate color palette
+    palette = generate_color_palette()
 
-# Append theme to themes.toml
-append_theme_to_toml(palette)
+    # Append theme to themes.toml
+    append_theme_to_toml(palette)
 
-print("Theme has been added to themes.toml.")
+    print("Theme has been added to themes.toml.")
