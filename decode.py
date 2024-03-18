@@ -34,4 +34,4 @@ def load_image(path="image.png", key="themes.toml"):
 
 
 if __name__ == "__main__":
-    loadImage(sys.argv[1])
+    load_image(sys.argv[1])
