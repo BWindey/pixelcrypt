@@ -3,7 +3,7 @@ import argparse
 from PIL import Image
 
 from color import colored_square
-from encryption_modes import DiagonalMode  # all encryption modes
+from modes import DiagonalMode  # all encryption modes
 from loadThemeFile import load_theme_file
 
 

@@ -24,13 +24,21 @@ def load_image(path="image.png", key="themes.toml"):
     keys = []
     for rgb_value in pixels_first_row_rgb:
         keys.append(
-            chr(int([key for key, value in theme.items() if tuple(value) == tuple(rgb_value)][0]))
+            chr(
+                int(
+                    [
+                        key
+                        for key, value in theme.items()
+                        if tuple(value) == tuple(rgb_value)
+                    ][0]
+                )
+            )
         )
 
     #  concatenate the characters into a single string
     decodedMessage = "".join(key for key in keys)
 
-    print(f"\ndecoded message: {decodedMessage}\n")
+    print(f"\n{decodedMessage}\n")
 
 
 if __name__ == "__main__":
