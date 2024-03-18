@@ -29,10 +29,10 @@ def loadImage(path="image.png", key="themes.toml"):
                 keys.append(chr(int(key)))
                 break
 
-    #  concatenate the keys into a single string
-    keys_str = "".join(key for key in keys)
+    #  concatenate the characters into a single string
+    decodedMessage = "".join(key for key in keys)
 
-    print(f"\ndecoded message: {keys_str}\n")
+    print(f"\ndecoded message: {decodedMessage}\n")
 
 
 loadImage(sys.argv[1])
