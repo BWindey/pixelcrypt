@@ -10,7 +10,8 @@ def stringToAscii(string):
 
 
 # fills the rows with transcoded data, and stacks it so it's a square
-def generateImage(asciiValues: list, fileName: str) -> None:
+def generateImage(asciiValues: list, fileName: str, modus=str) -> None:
+    # modus wordt een object die een image vult op basis van diens specificaties. Hiermee kan gemakkelijk een patroon gespecifieerd worden, en het is modulair. bv. vertical, diagonaal, spiral, random
     size = len(asciiValues)
     image = Image.new("RGB", (size, size), "white")
     theme = loadThemeFile()
