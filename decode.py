@@ -1,5 +1,6 @@
 from PIL import Image
 from loadThemeFile import loadThemeFile
+import sys
 
 
 def loadImage(path="image.png", key="themes.toml"):
@@ -7,11 +8,13 @@ def loadImage(path="image.png", key="themes.toml"):
     image = Image.open(path)
 
     # debug information
-    print("-" * 30)
+    print("-" * 15)
+    print(f"image: {path}")
+    print(f"key: {key}")
     print("format:", image.format)
     print("size:", image.size)
     print("mode:", image.mode)
-    print("-" * 30)
+    print("-" * 15)
 
     width, _ = image.size
 
@@ -25,14 +28,11 @@ def loadImage(path="image.png", key="themes.toml"):
             if all(abs(a - b) <= 5 for a, b in zip(rgb_value, theme_rgb)):
                 keys.append(chr(int(key)))
                 break
-        else:
-            keys.append(None)  # If no matching key is found, append None
 
-    # Filter out None values and concatenate the keys into a single string
-    keys_str = "".join(key for key in keys if key is not None)
+    #  concatenate the keys into a single string
+    keys_str = "".join(key for key in keys)
 
-    print("-" * 50)
-    print(keys_str)
+    print(f"\ndecoded message: {keys_str}\n")
 
 
-loadImage(input("image name (default in same dir is image.png): "))
+loadImage(sys.argv[1])
