@@ -1,6 +1,8 @@
 import argparse
+
 from PIL import Image
 
+from encryption_modes import DiagonalMode, ImageMode  # all encryption modes
 from loadThemeFile import load_theme_file
 
 
@@ -9,31 +11,21 @@ def string_to_ascii(string):  # returns a list with ascii values from a string
 
 
 # fills the rows with transcoded data, and stacks it, so it's a square
-def generate_image(ascii_values: list, file_name: str, modus=str) -> None:
-    """modus wordt een object die een image vult op basis van diens specificaties.
-      Hiermee kan gemakkelijk een patroon
-    gespecifieerd worden, en het is modulair. bv. vertical, diagonaal, spiral, random
-    """
+def generate_image(
+    ascii_values: list,
+    file_name: str,
+    encryption_mode,
+) -> None:
     size = len(ascii_values)
     image = Image.new("RGB", (size, size), "white")
     theme = load_theme_file()
 
+    # purely aesthetic conversion printing
     for x, ascii_val in enumerate(ascii_values):
-        ascii_str = str(ascii_val)
+        pixel_color = tuple(theme[str(ascii_val)])
+        print(f"{clear_text[x]} ➡️ {str(ascii_val).zfill(3)} ➡️ {pixel_color}")
 
-        color = theme[ascii_str]
-        # Ensure that the color is a list
-        if not isinstance(color, list):
-            raise ValueError("Invalid color format in theme file")
-
-        # Extract RGB values from the list
-        pixel_color = tuple(color)
-        # print debug info
-        print(f"    {clear_text[x]} ➡️ {str(ascii_val).zfill(3)} ➡️ {pixel_color}")
-
-        # Fill the entire column with the pixel color
-        for y in range(size):
-            image.putpixel(((x + y) % size, y), pixel_color)
+    image = encryption_mode.apply(ascii_values, image, theme, size)
 
     print("\nAttemting file save")
     try:
@@ -62,4 +54,4 @@ if __name__ == "__main__":
     asciiText = string_to_ascii(clear_text)
     print(f"\nascii values: {asciiText}\n")
 
-    generate_image(asciiText, fileName)
+    generate_image(asciiText, fileName, encryption_mode=DiagonalMode())
