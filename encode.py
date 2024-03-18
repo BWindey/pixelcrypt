@@ -1,4 +1,5 @@
 from PIL import Image
+import argparse
 
 from loadThemeFile import loadThemeFile
 
@@ -9,7 +10,7 @@ def stringToAscii(string):
 
 
 # fills the rows with transcoded data, and stacks it so it's a square
-def generateImage(asciiValues):
+def generateImage(asciiValues: list, fileName: str) -> None:
     size = len(asciiValues)
     image = Image.new("RGB", (size, size), "white")
     theme = loadThemeFile()
@@ -30,15 +31,29 @@ def generateImage(asciiValues):
             image.putpixel((x, y), pixel_color)
 
     try:
-        image.save("image.png")
+        image.save(f"{fileName}.png")
     except IOError as e:
         print(f"Error saving the image: {e}")
 
 
-clearText = input("message to encode: ")
-imageSize = len(clearText)
+parser = argparse.ArgumentParser(description="text -> image")
+
+parser.add_argument(
+    "message", metavar="message", type=str, help="enter a message to encode"
+)
+
+parser.add_argument(
+    "fileName", metavar="filename", type=str, help="filename of saved image"
+)
+
+args = parser.parse_args()
+
+
+clearText = args.message
+fileName = args.fileName
+
 asciiText = stringToAscii(clearText)
-print(asciiText)
+print(f"ascii values: {asciiText}")
 theme = loadThemeFile()
 
-generateImage(asciiText)
+generateImage(asciiText, fileName)
