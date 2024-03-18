@@ -20,13 +20,9 @@ def load_image(path="image.png", key="themes.toml"):
 
     keys = []
     for rgb_value in pixels_first_row_rgb:
-        for key, theme_rgb in theme.items():
-            # Check if the RGB values are within a certain tolerance
-            if all(abs(a - b) <= 5 for a, b in zip(rgb_value, theme_rgb)):
-                keys.append(chr(int(key)))
-                break
-        else:
-            keys.append(None)  # If no matching key is found, append None
+        keys.append(
+            chr(int([key for key, value in theme.items() if tuple(value) == tuple(rgb_value)][0]))
+        )
 
     # Filter out None values and concatenate the keys into a single string
     keys_str = "".join(key for key in keys if key is not None)
