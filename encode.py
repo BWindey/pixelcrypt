@@ -33,10 +33,10 @@ def generate_image(ascii_values: list, file_name: str, modus=str) -> None:
         for y in range(size):
             image.putpixel(((x + y) % size, y), pixel_color)
 
-    print("Attemting file save")
+    print("\nAttemting file save")
     try:
         image.save(f"{file_name}.png")
-        print(f"\nEncoded image saved succesfully under {file_name}.png\n")
+        print(f"Encoded image saved succesfully under {file_name}.png")
     except IOError as e:
         print(f"Error saving the image: {e}")
 
@@ -59,6 +59,5 @@ if __name__ == "__main__":
 
     asciiText = string_to_ascii(clear_text)
     print(f"\nascii values: {asciiText}\n")
-    theme = load_theme_file()
 
     generate_image(asciiText, fileName)
