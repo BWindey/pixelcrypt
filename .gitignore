@@ -5,3 +5,4 @@
 # Ignore .idea folder
 .idea/
 test.txt
+__pycache__

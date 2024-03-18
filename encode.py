@@ -33,6 +33,7 @@ def generate_image(ascii_values: list, file_name: str, modus=str) -> None:
         for y in range(size):
             image.putpixel(((x + y) % size, y), pixel_color)
 
+    print("Attemting file save")
     try:
         image.save(f"{file_name}.png")
         print(f"\nEncoded image saved succesfully under {file_name}.png\n")
