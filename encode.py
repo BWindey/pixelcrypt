@@ -1,5 +1,5 @@
-from PIL import Image
 import argparse
+from PIL import Image
 
 from loadThemeFile import load_theme_file
 
@@ -10,8 +10,10 @@ def string_to_ascii(string):  # returns a list with ascii values from a string
 
 # fills the rows with transcoded data, and stacks it, so it's a square
 def generate_image(ascii_values: list, file_name: str, modus=str) -> None:
-    # modus wordt een object die een image vult op basis van diens specificaties. Hiermee kan gemakkelijk een patroon
-    # gespecifieerd worden, en het is modulair. bv. vertical, diagonaal, spiral, random
+    """modus wordt een object die een image vult op basis van diens specificaties.
+      Hiermee kan gemakkelijk een patroon
+    gespecifieerd worden, en het is modulair. bv. vertical, diagonaal, spiral, random
+    """
     size = len(ascii_values)
     image = Image.new("RGB", (size, size), "white")
     theme = load_theme_file()
