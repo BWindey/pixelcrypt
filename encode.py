@@ -3,8 +3,8 @@ import argparse
 from PIL import Image
 
 from color import colored_square
-from modes import DiagonalMode, ImageMode, VerticalMode  # all encryption modes
 from loadThemeFile import load_theme_file
+from modes import DiagonalMode, ImageMode, VerticalMode  # all encryption modes
 
 
 def string_to_ascii(string):  # returns a list with ascii values from a string
@@ -22,6 +22,14 @@ def generate_image(
     image = Image.new("RGB", (size, size), "white")
     theme = load_theme_file()
 
+    printDebug(ascii_values, theme, clear_text)
+
+    image = encryption_mode.apply(ascii_values, image, theme, size)
+
+    save_file(image, file_name)
+
+
+def printDebug(ascii_values, theme, clear_text):
     # purely aesthetic conversion printing
     for x, ascii_val in enumerate(ascii_values):
         pixel_color = tuple(theme[str(ascii_val)])
@@ -29,8 +37,8 @@ def generate_image(
             f"{clear_text[x]} ➡️ {str(ascii_val).zfill(3)} ➡️ {colored_square(pixel_color)} {pixel_color}"
         )
 
-    image = encryption_mode.apply(ascii_values, image, theme, size)
 
+def save_file(image, file_name):
     print("\nAttemting file save")
     try:
         image.save(f"{file_name}.png")
