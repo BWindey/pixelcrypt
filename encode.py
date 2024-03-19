@@ -11,20 +11,16 @@ def string_to_ascii(string):  # returns a list with ascii values from a string
     return list(ord(i) for i in string)
 
 
-# fills the rows with transcoded data, and stacks it, so it's a square
 def generate_image(
-    clear_text: str,
-    ascii_values: list,
-    file_name: str,
-    encryption_mode: ImageMode,
+    text: str, ascii_vals: list, file_name: str, mode: ImageMode
 ) -> None:
-    size = len(ascii_values)
+    size = len(ascii_vals)
     image = Image.new("RGB", (size, size), "white")
     theme = load_theme_file()
 
-    printDebug(ascii_values, theme, clear_text)
+    printDebug(ascii_vals, theme, text)
 
-    image = encryption_mode.apply(ascii_values, image, theme, size)
+    image = mode.apply(ascii_vals, image, theme, size)
 
     save_file(image, file_name)
 
