@@ -13,6 +13,7 @@ def string_to_ascii(string):  # returns a list with ascii values from a string
 
 # fills the rows with transcoded data, and stacks it, so it's a square
 def generate_image(
+    clear_text: str,
     ascii_values: list,
     file_name: str,
     encryption_mode: ImageMode,
@@ -46,9 +47,9 @@ if __name__ == "__main__":
     }
 
     arguments = [
-        {"flags": ["-f, --file"], "help": "image name"},
-        {"flags": ["-m, --mode"], "help": "image encryption mode"},
-        {"flags": ["-t, --text"], "help": "message to encrypt"},
+        {"flags": ["-t", "--text"], "help": "message to encrypt"},
+        {"flags": ["-f", "--file"], "help": "image name"},
+        {"flags": ["-m", "--mode"], "help": "image encryption mode"},
     ]
     parser = argparse.ArgumentParser(description="text -> image")
 
@@ -59,11 +60,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    clear_text = args.message
-    fileName = args.fileName
+    fileName = args.file
     mode = args.mode
+    text = args.text
 
-    asciiText = string_to_ascii(clear_text)
+    asciiText = string_to_ascii(text)
     print(f"\nascii values: {asciiText}\n")
 
-    generate_image(asciiText, fileName, modes[mode])
+    generate_image(text, asciiText, fileName, modes[mode])
