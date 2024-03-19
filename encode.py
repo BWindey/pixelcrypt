@@ -3,7 +3,7 @@ import argparse
 from PIL import Image
 
 from color import colored_square
-from modes import DiagonalMode  # all encryption modes
+from modes import DiagonalMode, ImageMode, VerticalMode  # all encryption modes
 from loadThemeFile import load_theme_file
 
 
@@ -15,7 +15,7 @@ def string_to_ascii(string):  # returns a list with ascii values from a string
 def generate_image(
     ascii_values: list,
     file_name: str,
-    encryption_mode,
+    encryption_mode: ImageMode,
 ) -> None:
     size = len(ascii_values)
     image = Image.new("RGB", (size, size), "white")
@@ -33,28 +33,37 @@ def generate_image(
     print("\nAttemting file save")
     try:
         image.save(f"{file_name}.png")
-        print(f"Encoded image saved succesfully under {file_name}.png")
+        print(f"Encoded image saved succesfully as {file_name}.png")
     except IOError as e:
         print(f"Error saving the image: {e}")
+        print(e.strerror)
 
 
 if __name__ == "__main__":
+    modes = {
+        "diagonal": DiagonalMode(),
+        "vertical_bars": VerticalMode(),
+    }
+
+    arguments = [
+        {"flags": ["-f, --file"], "help": "image name"},
+        {"flags": ["-m, --mode"], "help": "image encryption mode"},
+        {"flags": ["-t, --text"], "help": "message to encrypt"},
+    ]
     parser = argparse.ArgumentParser(description="text -> image")
 
-    parser.add_argument(
-        "message", metavar="message", type=str, help="enter a message to encode"
-    )
+    parser.add_argument("mode", metavar="mode", type=str, help="encryption mode")
 
-    parser.add_argument(
-        "fileName", metavar="filename", type=str, help="filename of saved image"
-    )
+    for arg in arguments:
+        parser.add_argument(*arg["flags"], help=arg["help"])
 
     args = parser.parse_args()
 
     clear_text = args.message
     fileName = args.fileName
+    mode = args.mode
 
     asciiText = string_to_ascii(clear_text)
     print(f"\nascii values: {asciiText}\n")
 
-    generate_image(asciiText, fileName, encryption_mode=DiagonalMode())
+    generate_image(asciiText, fileName, modes[mode])
