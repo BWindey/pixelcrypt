@@ -18,14 +18,14 @@ def generate_image(
     image = Image.new("RGB", (size, size), "white")
     theme = load_theme_file()
 
-    printDebug(ascii_vals, theme, text)
+    print_debug(ascii_vals, theme, text)
 
     image = mode.apply(ascii_vals, image, theme, size)
 
     save_file(image, file_name)
 
 
-def printDebug(ascii_values, theme, clear_text):
+def print_debug(ascii_values, theme, clear_text):
     # purely aesthetic conversion printing
     for x, ascii_val in enumerate(ascii_values):
         pixel_color = tuple(theme[str(ascii_val)])
